@@ -14,7 +14,7 @@ ENV LANG is_IS.utf8
 RUN mkdir -p /srv/greynir-data
 WORKDIR /srv/greynir-data
 
-RUN git clone https://github.com/busla/Reynir.git
+RUN git clone https://github.com/vthorsteinsson/Reynir.git
 
 WORKDIR /srv/greynir-data/Reynir 
 

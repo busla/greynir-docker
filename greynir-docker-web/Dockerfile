@@ -19,7 +19,7 @@ ENV LANG is_IS.utf8
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-RUN git clone https://github.com/busla/Reynir.git
+RUN git clone https://github.com/vthorsteinsson/Reynir.git
 
 WORKDIR /usr/src/app/Reynir
 
