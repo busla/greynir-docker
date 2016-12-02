@@ -2,13 +2,19 @@ version: '2'
 services:
   web:
     image: busla/greynir_web
-    ports:
-    - "5000:5000"
+    container_name: greynir_web
+    ports: "5000:5000"
     links: postgres
+    depends_on: postgres
+    command: /bin/bash -c "pypy3 scraper.py --init;  pypy3 main.py
   
   postgres:
     image: busla/greynir_db
-    links: data
+    container_name: greynir_db
+    ports: "5432:5432"
+    volumes_from: data
+    depends_on: data
   
   data:
     image: busla/greynir_data
+    container_name: greynir_data
