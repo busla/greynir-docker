@@ -18,4 +18,5 @@ services:
     - postgres
     depends_on: 
     - postgres
+    restart: always
     command: /bin/bash -c "pypy3 scraper.py --init;  pypy3 main.py"
