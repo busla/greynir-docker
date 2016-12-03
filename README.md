@@ -1,4 +1,5 @@
-# Docker images for the Greynir natural language processor for Icelandic
+# Docker images for Greynir
+## A natural language processor for Icelandic
 https://github.com/vthorsteinsson/Reynir
 
 Docker-compose will run the Greynir application cluster. This consists of two Docker
@@ -20,9 +21,9 @@ Detached from console: `docker-compose -d up`
 
 Attached-mode will display all output from the containers in the console.
 
-## Building and running the images separately
+# Building and running the images separately
 
-# Building the database container image
+## Building the database container image
 If you already have PostgreSQL running on your server at port 5432, stop the service first
 or you will get a port conflict. (Alternatively, configure
 the Greynir database container to use a different port using the `GREYNIR_DB_PORT`
@@ -35,16 +36,16 @@ before starting the build.
 
 `docker build -t busla/greynir_db .`
 
-# Running the database container
+## Running the database container
 This will expose the Greynir database on port 5432.
 
 `docker run --name greynir_db -p 5432:5432 -d busla/greynir_db`
 
-# Building the web container image
+## Building the web container image
 `cd greynir-docker-web`
 `docker build -t busla/greynir_web .`
 
-# Running the web container
+## Running the web container
 The default settings will expose the web server on port 5000.
 
 `docker run --name greynir_web -p 5000:5000 --link greynir_db busla/greynir_web /bin/bash -c "pypy3 scraper.py --init;  pypy3 main.py"`
