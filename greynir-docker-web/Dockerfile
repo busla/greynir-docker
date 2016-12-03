@@ -41,4 +41,5 @@ ENV GREYNIR_DB_HOST greynir_db
 ENV GREYNIR_DB_PORT 5432
 
 #VOLUME /usr/src/app/Reynir/resources
-#RUN pypy3 scraper.py --init
+
+
