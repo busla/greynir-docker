@@ -39,7 +39,7 @@ before starting the build.
 ## Running the database container
 This will expose the Greynir database on port 5432.
 
-`docker run --name greynir_db -p 5432:5432 -d busla/greynir_db`
+`docker run --name greynir_db -p 5432:5432 busla/greynir_db`
 
 ## Building the web container image
 `cd greynir-docker-web`
@@ -49,4 +49,4 @@ This will expose the Greynir database on port 5432.
 ## Running the web container
 The default settings will expose the web server on port 5000.
 
-`docker run --name greynir_web -p 5000:5000 --link greynir_db -d busla/greynir_web /bin/bash -c "pypy3 scraper.py --init;  pypy3 main.py"`
+`docker run --name greynir_web -p 5000:5000 --link greynir_db busla/greynir_web /bin/bash -c "pypy3 scraper.py --init;  pypy3 main.py"`
