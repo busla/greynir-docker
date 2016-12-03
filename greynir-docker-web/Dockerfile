@@ -30,6 +30,12 @@ RUN pip install -r requirements.txt
 WORKDIR /usr/src/app/Reynir
 RUN make
 
+# Build the ordalisti.text.dawg file
+WORKDIR /usr/src/app/Reynir/utils
+RUN pypy3 dawgbuilder.py
+
+WORKDIR /usr/src/app/Reynir
+
 EXPOSE 5000
 ENV GREYNIR_DB_HOST greynir_db
 ENV GREYNIR_DB_PORT 5432
