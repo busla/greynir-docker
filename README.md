@@ -1,13 +1,16 @@
-# Docker for Greynir web application
+# Docker images for the Greynir natural language processor for Icelandic
 https://github.com/vthorsteinsson/Reynir
 
-Docker-compose will run the Greynir application cluster.
+Docker-compose will run the Greynir application cluster. This consists of two Docker
+images, a *database image* (exposing PostgreSQL at port 5432 by default) and a *web image*
+(exposing a HTTP server on port 5000 by default).
 
 ## Third party data
-Make sure the third party data files are added to the `greynir-docker-db` directory. 
+Make sure that Icelandic dictionary files from BÍN (*Beygingarlýsing íslensks nútímamáls*)
+are added to the `greynir-docker-db` directory before building the database container.
+These files are not included in the Greynir distribution and must be obtained separately.
 
-
-See the Greynir README for details about third party data.
+See the Greynir README for further details.
 
 https://github.com/vthorsteinsson/Reynir
 
@@ -16,3 +19,32 @@ Attached to console: `docker-compose up`
 Detached from console: `docker-compose -d up`
 
 Attached-mode will display all output from the containers in the console.
+
+## Building and running the images separately
+
+# Building the database container image
+If you already have PostgreSQL running on your server at port 5432, stop the service first
+or you will get a port conflict. (Alternatively, configure
+the Greynir database container to use a different port using the `GREYNIR_DB_PORT`
+environment variable).
+
+`cd greynir-docker-db`
+
+Make sure that the files `obeyg.smaord.txt`, `plastur.feb2013.txt` and `SHsnid.csv` are present in the directory
+before starting the build.
+
+`docker build -t busla/greynir_db .`
+
+# Running the database container
+This will expose the Greynir database on port 5432.
+
+`docker run --name greynir_db -p 5432:5432 -d busla/greynir_db`
+
+# Building the web container image
+`cd greynir-docker-web`
+`docker build -t busla/greynir_web .`
+
+# Running the web container
+The default settings will expose the web server on port 5000.
+
+`docker run --name greynir_web -p 5000:5000 --link greynir_db busla/greynir_web /bin/bash -c "pypy3 scraper.py --init;  pypy3 main.py"`
