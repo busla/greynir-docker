@@ -1,7 +1,7 @@
 FROM postgres:latest
 MAINTAINER Jón Levy <nonni@nonni.cc>
 # create the image: docker build -t busla/greynir_db . 
-# docker run --name greynir_db --volumes-from greynir_data -d busla/greynir_db
+# docker run --name greynir_db -p 5432:5432 -d busla/greynir_db
 # Set the locale
 
 RUN apt-get update && apt-get install -y git python3.4
@@ -26,3 +26,6 @@ WORKDIR /srv/greynir-data/Reynir/utils
 RUN python3.4 external_data_validator.py
 
 ADD sql/initial_setup.sql /docker-entrypoint-initdb.d/initial_setup.sql
+
+WORKDIR /srv/greynir-data/Reynir
+RUN python3.4 scraperinit.py
