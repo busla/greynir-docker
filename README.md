@@ -55,6 +55,7 @@ The default settings will expose the web server on port 5000.
 `greynir_web` depends on the `GREYNIR_DB_HOST` and `GREYNIR_DB_PORT` environment variables. If there is a need to run multiple instances of Greynir you can set these variables when you run greynir_web.
 
 Example:
+
 `docker run --name another_greynir_db_container -p 5432:5432 busla/greynir_db`
 
 `docker run --name greynir_web -e "GREYNIR_DB_HOST=another_greynir_db_container" -p 5000:5000 --link another_greynir_db_container busla/greynir_web /bin/bash -c "pypy3 scraper.py --init;  pypy3 main.py"`
