@@ -34,11 +34,12 @@ RUN make
 WORKDIR /usr/src/app/Reynir/utils
 RUN pypy3 dawgbuilder.py
 
+ENV GREYNIR_DB_HOST greynir_db
+ENV GREYNIR_DB_PORT 5432
+
 WORKDIR /usr/src/app/Reynir
 
 EXPOSE 5000
-ENV GREYNIR_DB_HOST greynir_db
-ENV GREYNIR_DB_PORT 5432
 
 #VOLUME /usr/src/app/Reynir/resources
 
