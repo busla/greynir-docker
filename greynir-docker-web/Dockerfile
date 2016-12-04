@@ -42,4 +42,5 @@ ENV GREYNIR_DB_PORT 5432
 
 #VOLUME /usr/src/app/Reynir/resources
 
+CMD ["pypy3", "main.py"]
 

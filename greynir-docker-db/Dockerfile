@@ -26,6 +26,3 @@ WORKDIR /srv/greynir-data/Reynir/utils
 RUN python3.4 external_data_validator.py
 
 ADD sql/initial_setup.sql /docker-entrypoint-initdb.d/initial_setup.sql
-
-WORKDIR /srv/greynir-data/Reynir
-RUN python3.4 scraperinit.py
