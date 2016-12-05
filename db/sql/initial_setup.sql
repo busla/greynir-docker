@@ -21,3 +21,4 @@ grant all privileges on database scraper to reynir;
 grant all privileges on database scraper to notandi;    
 \c scraper;
 create extension if not exists "uuid-ossp";
+
