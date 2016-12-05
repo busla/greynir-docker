@@ -29,33 +29,34 @@ or you will get a port conflict. (Alternatively, configure
 the Greynir database container to use a different port using the `GREYNIR_DB_PORT`
 environment variable).
 
-`cd greynir-docker-db`
+`cd greynir-docker/db`
 
 Make sure that the files `obeyg.smaord.txt`, `plastur.feb2013.txt` and `SHsnid.csv` are present in the directory
 before starting the build.
 
-`docker build -t busla/greynir_db .`
+`docker build -t greynir/db .`
 
 ## Running the database container
 This will expose the Greynir database on port 5432.
 
-`docker run --name greynir_db -p 5432:5432 busla/greynir_db`
+`docker run -d --name greynir_db -p 5432:5432 greynir/db`
 
 ## Building the web container image
-`cd greynir-docker-web`
+`cd greynir-docker/web`
 
-`docker build -t busla/greynir_web .`
+`docker build -t greynir/web .`
 
 ## Running the web container
 The default settings will expose the web server on port 5000.
 
-`docker run --name greynir_web -p 5000:5000 --link greynir_db busla/greynir_web /bin/bash -c "pypy3 scraper.py --init;  pypy3 main.py"`
+`docker run -d --name greynir_web -p 5000:5000 --link greynir_db greynir/web`
+
 
 ## Running several containers
 `greynir_web` depends on the `GREYNIR_DB_HOST` and `GREYNIR_DB_PORT` environment variables. If there is a need to run multiple instances of Greynir you can set these variables when you run greynir_web.
 
 Example:
 
-`docker run --name another_greynir_db_container -p 5432:5432 busla/greynir_db`
+`docker run --name <new_greynir_db> -p <new-db-port>:5432 greynir/db`
 
-`docker run --name greynir_web -e "GREYNIR_DB_HOST=another_greynir_db_container" -p 5000:5000 --link another_greynir_db_container busla/greynir_web /bin/bash -c "pypy3 scraper.py --init;  pypy3 main.py"`
+`docker run --name <new_greynir_web> -e "GREYNIR_DB_HOST=new_greynir_db" -p <new-web-port>:5000 --link <new_greynir_db> greynir/web`
