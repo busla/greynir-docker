@@ -29,7 +29,7 @@ or you will get a port conflict. (Alternatively, configure
 the Greynir database container to use a different port using the `GREYNIR_DB_PORT`
 environment variable).
 
-`cd greynir-docker-db`
+`cd greynir-docker/db`
 
 Make sure that the files `obeyg.smaord.txt`, `plastur.feb2013.txt` and `SHsnid.csv` are present in the directory
 before starting the build.
@@ -42,11 +42,11 @@ This will expose the Greynir database on port 5432.
 `docker run -d --name greynir_db -p 5432:5432 greynir/db`
 
 ## Building the web container image
-`cd greynir-docker-web`
+`cd greynir-docker/web`
 
 `docker build -t greynir/web .`
 
 ## Running the web container
 The default settings will expose the web server on port 5000.
 
-`docker run -d --name greynir_web -p 5000:5000 --link greynir_db greynir/web /bin/bash -c "pypy3 scraper.py --init;  pypy3 main.py"`
+`docker run -d --name greynir_web -p 5000:5000 --link greynir_db greynir/web`
