@@ -1,22 +1,23 @@
 version: '2'
 services:  
 
+  web:
+    build: ./web
+    image: greynir/web
+    container_name: greynir_web
+    ports: 
+      - 0.0.0.0:5000:5000
+    links: 
+      - postgres
+    depends_on: 
+      - postgres
+    restart: always
+
   postgres:
-    build: ./greynir-docker-db
-    image: busla/greynir_db
+    build: ./db
+    image: greynir/db
     container_name: greynir_db
     ports: 
-    - 0.0.0.0:5432:5432
+      - 0.0.0.0:5432:5432
 
-  web:
-    build: ./greynir-docker-web
-    container_name: greynir_web
-    image: busla/greynir_web
-    ports: 
-    - 0.0.0.0:5000:5000
-    links: 
-    - postgres
-    depends_on: 
-    - postgres
-    restart: always
-    command: /bin/bash -c "pypy3 scraper.py --init;  pypy3 main.py"
+
