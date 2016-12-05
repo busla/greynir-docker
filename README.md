@@ -1,21 +1,25 @@
 # Docker images for Greynir
-## A natural language processor for Icelandic
-https://github.com/vthorsteinsson/Reynir
+*A natural language processor for Icelandic* - https://github.com/vthorsteinsson/Reynir
 
-Docker-compose will run the Greynir application cluster. This consists of two Docker
-images, a *database image* (exposing PostgreSQL at port 5432 by default) and a *web image*
-(exposing a HTTP server on port 5000 by default).
+This repository contains Dockerfiles and a `docker-compose.yml` file for container images
+related to Greynir.
+
+A simple Greynir application cluster can be built and run via `docker-compose`. This consists of
+two Docker images, a *database image* (exposing PostgreSQL at port 5432 by default) and
+a *web image* (exposing a HTTP server on port 5000 by default).
 
 ## Third party data
 Make sure that Icelandic dictionary files from BÍN (*Beygingarlýsing íslensks nútímamáls*)
-are added to the `greynir-docker-db` directory before building the database container.
-These files are not included in the Greynir distribution and must be obtained separately.
+are added to the `greynir-docker/db` directory before building the database container.
+These files are not included in the Greynir distribution and must be obtained separately,
+as they are copyright(C) by *Stofnun Árna Magnússonar í íslenskum fræðum*.
 
 See the Greynir README for further details.
 
-https://github.com/vthorsteinsson/Reynir
-
 ## How to run
+
+`cd greynir-docker`
+
 Attached to console: `docker-compose up`
 Detached from console: `docker-compose -d up`
 
@@ -53,7 +57,8 @@ The default settings will expose the web server on port 5000.
 
 
 ## Running several containers
-`greynir_web` depends on the `GREYNIR_DB_HOST` and `GREYNIR_DB_PORT` environment variables. If there is a need to run multiple instances of Greynir you can set these variables when you run greynir_web.
+The `greynir/web` image depends on the `GREYNIR_DB_HOST` and `GREYNIR_DB_PORT` environment variables.
+To run multiple instances of Greynir you can set these variables when you run `greynir/web`.
 
 Example:
 
