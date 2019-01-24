@@ -13,9 +13,12 @@ image and exposing a HTTP server on port 5050 by default).
 
 ## How to run
 
-`cd greynir-docker`
+```bash
+cd greynir-docker
+```
 
 Attached to console: `docker-compose up`
+
 Detached from console: `docker-compose -d up`
 
 Attached-mode will display all output from the containers in the console.
@@ -24,27 +27,33 @@ Attached-mode will display all output from the containers in the console.
 
 ## Building the database container image
 
-`cd greynir-docker/db`
-
-`docker build -t greynir/db .`
+```bash
+cd greynir-docker/db
+docker build -t greynir/db .
+```
 
 ## Running the database container
 
 This will expose the Greynir database on port 5432.
 
-`docker run -d --name greynir_db -p 5432:5432 greynir/db`
+```bash
+docker run -d --name greynir_db -p 5432:5432 greynir/db
+```
 
 ## Building the web container image
 
-`cd greynir-docker/web`
-
-`docker build -t greynir/web .`
+```bash
+cd greynir-docker/web
+docker build -t greynir/web .
+```
 
 ## Running the web container
 
 The default settings will expose the web server on port 5050.
 
-`docker run -d --name greynir_web -p 5050:5000 --link greynir_db greynir/web`
+```bash
+docker run -d --name greynir_web -p 5050:5000 --link greynir_db greynir/web
+```
 
 ## Running several containers
 
@@ -56,6 +65,12 @@ when you run `greynir/web`.
 
 Example:
 
-`docker run --name <new_greynir_db> -p <new-db-port>:5432 greynir/db`
+```bash
+docker run --name <new_greynir_db> -p <new-db-port>:5432 greynir/db
 
-`docker run --name <new_greynir_web> -e GREYNIR_DB_HOST=<new_greynir_db> -e GREYNIR_DB_PORT=<new_db_port> -p <new-web-port>:5000 --link <new_greynir_db> greynir/web`
+docker run --name <new_greynir_web> \
+	-e GREYNIR_DB_HOST=<new_greynir_db> \
+	-e GREYNIR_DB_PORT=<new_db_port> \
+	-p <new-web-port>:5000 \
+	--link <new_greynir_db> greynir/web
+```
