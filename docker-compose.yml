@@ -1,23 +1,21 @@
-version: '2'
-services:  
+version: '3'
+services:
+
+  db:
+    build: ./db
+    image: greynir/db
+    container_name: greynir_db
+    environment:
+      - POSTGRES_USER=reynir
+      - POSTGRES_PASSWORD=reynir
 
   web:
     build: ./web
     image: greynir/web
     container_name: greynir_web
     ports: 
-      - 0.0.0.0:5000:5000
-    links: 
-      - postgres
+      - "5050:5000"
     depends_on: 
-      - postgres
+      - db
     restart: always
-
-  postgres:
-    build: ./db
-    image: greynir/db
-    container_name: greynir_db
-    ports: 
-      - 0.0.0.0:5432:5432
-
 
